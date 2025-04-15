@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>new new pdfviewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/supabase/2.39.7/supabase.min.js"></script>
+    <style>
+            @font-face {
+            font-family: 'Manrope';
+            src: url(./Manrope-VariableFont_wght.woff2);
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        body {
+            font-family: 'Manrope';
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            color: #333;
+            margin-top: 8vw;
+            background-color: white;
+            text-align: center;
+        }
+        h1 {
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: lowercase;
+        }
+        p {
+            margin-bottom: 4px;
+            font-size: 16px;
+            text-transform: lowercase;
+            line-height: 1.15;
+        }
+        .email-container {
+            margin-top: 25px;
+            margin-bottom: 18px;
+        }
+        .email-input {
+            font-family: 'Manrope';
+            font-size: 16px;
+            padding: 8px 14px;
+            width: 100%;
+            max-width: 220px;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            background: transparent;
+            margin-bottom: 18px;
+            text-align: center;
+            text-transform: lowercase;
+        }
+        .email-input:focus {
+            outline: none;
+            border-bottom: 1px solid #999;
+        }
+        .waitlist-btn {
+            font-family: 'Manrope';
+            font-size: 14px;
+            font-weight: 400;
+            background-color: #f5f5f5;
+            color: #333;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: lowercase;
+        }
+        .waitlist-btn:hover {
+            background-color: #eaeaea;
+        }
+        .message {
+            margin-top: 16px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-transform: lowercase;
+        }
+        .message.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1>opendoc.</h1>
+    
+    <p>hey.</p>
+    <p>this is the simplest pdf viewer tool</p>
+    <p>(yeah, actually the simplest one)</p>
+    <p>sign up for the waitlist right here.</p>
+    <p> &lt;3</p>
+    
+    <div class="email-container">
+        <input type="email" class="email-input" placeholder="matt@damon.com" id="email-input">
+    </div>
+    
+    <button class="waitlist-btn" id="waitlist-btn">join waitlist</button>
+    
+    <div class="message" id="success-message">thank you! you've been added to the waitlist.</div>
+    <div class="message" id="error-message">something went wrong. please try again.</div>
+    
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script>
+    // Initialize Supabase client
+    const SUPABASE_URL = 'https://tdosuqfkyfgxpxlaxukd.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkb3N1cWZreWZneHB4bGF4dWtkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3MDY1MjEsImV4cCI6MjA2MDI4MjUyMX0.hABc-xh76aL1PmtJm_TfVG-xXRftz9hilwiuHqGZ17I';
+    const { createClient } = supabase;
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
+    // Get DOM elements
+    const emailInput = document.getElementById('email-input');
+    const waitlistBtn = document.getElementById('waitlist-btn');
+    const successMessage = document.getElementById('success-message');
+    const errorMessage = document.getElementById('error-message');
+    
+    // Add a console log to verify the button is found
+    console.log("Button element:", waitlistBtn);
+    
+    // Function to validate email
+    function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+    
+    // Show message function
+    function showMessage(element, duration = 3000) {
+        element.classList.add('visible');
+        setTimeout(() => {
+            element.classList.remove('visible');
+        }, duration);
+    }
+    
+    // Add event listener to the button
+    waitlistBtn.addEventListener('click', async () => {
+        console.log("Button clicked!"); // Add this to verify click is registered
+        
+        const email = emailInput.value.trim();
+        console.log("Email input:", email); // Check the email value
+        
+        if (!isValidEmail(email)) {
+            errorMessage.textContent = "please enter a valid email address.";
+            showMessage(errorMessage);
+            return;
+        }
+        
+        try {
+            console.log("Attempting to insert email into Supabase...");
+            // Insert the email into Supabase
+            const { data, error } = await supabaseClient
+                .from('waitlist')
+                .insert([{ email, joined_at: new Date().toISOString() }]);
+            
+            console.log("Supabase response:", { data, error });
+            
+            if (error) throw error;
+            
+            // Show success message
+            emailInput.value = '';
+            showMessage(successMessage);
+            
+        } catch (error) {
+            console.error('Error:', error);
+            errorMessage.textContent = error.message || "something went wrong. please try again.";
+            showMessage(errorMessage);
+        }
+    });
+</script>
+</body>
+</html>
