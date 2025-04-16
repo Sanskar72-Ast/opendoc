@@ -18,6 +18,15 @@
             font-style: normal;
             font-display: swap;
         }
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center;     
+            text-align: center;
+        }
+
         body {
             font-family: 'Inter';
             max-width: 600px;
@@ -26,8 +35,7 @@
             color: #333;
             margin-top: 8vw;
             background-color: white;
-            text-align: center;
-           
+            text-align: center;  
         }
         img {
             margin-bottom: 20px;
@@ -97,7 +105,7 @@
         .message.visible {
             opacity: 1;
         }
-        .footer {
+        footer {
             display: flex;
             justify-content: center;
             align-items: center;     
@@ -105,15 +113,16 @@
             padding: 20px;
             text-decoration: none;
             color: #707070;
-            margin-top: 7vw;
+            margin-top: 10rem;
         }
-        .footer a {
+        footer a {
             text-decoration: none;
             color: #707070;
         }
         #tiny-circle{
             font-size: 1.5px;
         }
+
         @media (max-width: 1180px) {
             .waitlist-btn {
                 font-size: 14px;
@@ -133,26 +142,27 @@
     </style>
 </head>
 <body>
+    <div class="main">
     <img src="./opendoc_logo&text.png" alt="" srcset="">
     
     <p>hey. this is the simplest pdf tool ever</p>
-    <p>(yeah, and its sleek af)</p>
+    <p>(yeah, and its sleek)</p>
     <p>sign up for the waitlist right here.</p>
     
     <div class="email-container">
-        <input type="email" class="email-input" placeholder="matt@damon.com" id="email-input">
+        <input type="email" class="email-input" placeholder="tony@stark.com" id="email-input">
     </div>
     
     <button class="waitlist-btn" id="waitlist-btn">lets goo!!</button>
     
     <div class="message" id="success-message">thank you! you've been added to the waitlist.</div>
     <div class="message" id="error-message">something went wrong. please try again.</div>
-
-    <div class="footer">
+    </div>
+    <footer>
         <span>opendoc 2025</span>
         <span id="tiny-circle"> ● </span>
         <span><a href="mailto:yo@opendoc.pro">contact</a></span>
-    </div>
+    </footer>
     
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <script>
