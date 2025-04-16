@@ -3,19 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>new new pdfviewer</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="manifest" href="./site.webmanifest">
+    <title>opendoc</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/supabase/2.39.7/supabase.min.js"></script>
     <style>
+
             @font-face {
-            font-family: 'Manrope';
-            src: url(./Manrope-VariableFont_wght.woff2);
+            font-family: 'Inter';
+            src: url(./Inter-VariableFont_opsz\,wght.woff2);
             font-weight: 400;
             font-style: normal;
             font-display: swap;
         }
-
         body {
-            font-family: 'Manrope';
+            font-family: 'Inter';
             max-width: 600px;
             margin: 0 auto;
             padding: 40px 20px;
@@ -23,15 +27,19 @@
             margin-top: 8vw;
             background-color: white;
             text-align: center;
+           
         }
-        h1 {
-            font-weight: 700;
+        img {
             margin-bottom: 20px;
-            text-transform: lowercase;
+            width: 12vw;
+            align-self: center;
+            height: auto;
         }
         p {
             margin-bottom: 4px;
             font-size: 16px;
+            color: #707070;
+            font-weight: 500;
             text-transform: lowercase;
             line-height: 1.15;
         }
@@ -40,7 +48,7 @@
             margin-bottom: 18px;
         }
         .email-input {
-            font-family: 'Manrope';
+            font-family: 'Inter';
             font-size: 16px;
             padding: 8px 14px;
             width: 100%;
@@ -51,26 +59,33 @@
             margin-bottom: 18px;
             text-align: center;
             text-transform: lowercase;
+            color: #9d9d9d;
+            letter-spacing: 3px;
+            line-height: 4px;
+            font-weight: 400;
+
         }
         .email-input:focus {
             outline: none;
             border-bottom: 1px solid #999;
         }
         .waitlist-btn {
-            font-family: 'Manrope';
+            font-family: 'Inter';
+            height: 3vw;
+            width: 9vw;
             font-size: 14px;
-            font-weight: 400;
-            background-color: #f5f5f5;
-            color: #333;
-            border: 1px solid #eee;
-            border-radius: 4px;
+            font-weight: 500;
+            background-color: #1d1d1f;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
             padding: 8px 16px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.4s ease;
             text-transform: lowercase;
         }
         .waitlist-btn:hover {
-            background-color: #eaeaea;
+            background-color: #49494d;
         }
         .message {
             margin-top: 16px;
@@ -82,25 +97,62 @@
         .message.visible {
             opacity: 1;
         }
+        .footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;     
+            gap: 10px;               
+            padding: 20px;
+            text-decoration: none;
+            color: #707070;
+            margin-top: 7vw;
+        }
+        .footer a {
+            text-decoration: none;
+            color: #707070;
+        }
+        #tiny-circle{
+            font-size: 1.5px;
+        }
+        @media (max-width: 1180px) {
+            .waitlist-btn {
+                font-size: 14px;
+                padding: 10px 20px;
+                width: fit-content;
+                height: fit-content;
+                max-width: 100%;
+            }
+        }
+        @media (max-width: 800px) {
+            img {
+                max-width: 120px; 
+                min-width: 120px;
+                }
+        }
+
     </style>
 </head>
 <body>
-    <h1>opendoc.</h1>
+    <img src="./opendoc_logo&text.png" alt="" srcset="">
     
-    <p>hey.</p>
-    <p>this is the simplest pdf viewer tool</p>
-    <p>(yeah, actually the simplest one)</p>
+    <p>hey. this is the simplest pdf tool ever</p>
+    <p>(yeah, and its sleek af)</p>
     <p>sign up for the waitlist right here.</p>
-    <p> &lt;3</p>
     
     <div class="email-container">
         <input type="email" class="email-input" placeholder="matt@damon.com" id="email-input">
     </div>
     
-    <button class="waitlist-btn" id="waitlist-btn">join waitlist</button>
+    <button class="waitlist-btn" id="waitlist-btn">lets goo!!</button>
     
     <div class="message" id="success-message">thank you! you've been added to the waitlist.</div>
     <div class="message" id="error-message">something went wrong. please try again.</div>
+
+    <div class="footer">
+        <span>opendoc 2025</span>
+        <span id="tiny-circle"> ● </span>
+        <span><a href="mailto:yo@opendoc.pro">contact</a></span>
+    </div>
     
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <script>
